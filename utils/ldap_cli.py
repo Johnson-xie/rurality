@@ -16,25 +16,8 @@ class LdapCli:
         self.member_dn = f'cn=member,{self.root_dn}'
         self.server = Server(self.host)
 
-    def _gen_password(self):
-        return '123456'
-
     def _create_connection(self):
         return Connection(self.server, f'cn={self.username},{self.root_dn}', self.password, auto_bind=True)
-
-    def add_user(self, username, name):
-        '''
-        返回True为成功、False为失败
-        '''
-        dn = f'cn={username},{self.member_dn}'
-        object_class = 'inetOrgPerson'
-        attribute = {
-            'sn': f'{name}',
-            'uid': f'{username}',
-            'userPassword': self._gen_password(),
-        }
-        conn = self._create_connection()
-        return conn.add(dn, object_class, attribute)
 
     def get_users(self):
         '''
@@ -54,7 +37,16 @@ class LdapCli:
             data_list.append(data)
         return data_list
 
-
+    def check_password(self, username, password):
+        '''
+        校验密码
+        '''
+        dn = f'cn={username},cn=member,dc=waylonglong,dc=com'
+        try:
+            Connection(self.server, dn, password, auto_bind=True)
+        except exceptions.LDAPBindError as e:
+            return False
+        return True
 
 
 ldap_cli = LdapCli('ldap://127.0.0.1:389', 'dc=waylonglong,dc=com', 'admin', 'ldap123')
