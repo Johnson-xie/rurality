@@ -23,7 +23,7 @@ class LdapCli:
         '''
         获取用户列表
         '''
-        dn = 'cn=member,dc=waylonglong,dc=com'
+        dn = self.member_dn
         conn = self._create_connection()
         attributes = ['cn', 'sn']
         conn.search(dn, '(objectclass=person)', attributes=attributes)
@@ -41,7 +41,7 @@ class LdapCli:
         '''
         校验密码
         '''
-        dn = f'cn={username},cn=member,dc=waylonglong,dc=com'
+        dn = f'cn={username},{self.member_dn}'
         try:
             Connection(self.server, dn, password, auto_bind=True)
         except exceptions.LDAPBindError as e:
@@ -49,4 +49,4 @@ class LdapCli:
         return True
 
 
-ldap_cli = LdapCli('ldap://127.0.0.1:389', 'dc=waylonglong,dc=com', 'admin', 'ldap123')
+ldap_cli = LdapCli('ldap://ldap.oldb.top:389', 'dc=oldb,dc=top', 'admin', 'ldap123')
