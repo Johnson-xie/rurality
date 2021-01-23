@@ -218,8 +218,21 @@ class LdapConfigModel(BaseModel):
     # ldap管理员账号DN：类似这样cn=admin,dc=oldb,dc=top
     admin_dn = models.CharField('管理员DN', max_length=128)
     admin_password = models.CharField('管理员密码', max_length=128)
-    # 所有成员在此节点下
-    member_base_dn = models.CharField('成员基础DN', max_length=128)
+    # 所有用户在此节点下
+    member_base_dn = models.CharField('用户基础DN', max_length=128)
 
     class Meta:
         db_table = 'ldap_config'
+
+    @classmethod
+    def none_to_dict(cls):
+        '''
+        不存在时，返回内容
+        '''
+        data = {
+            'host': '',
+            'admin_dn': '',
+            'admin_password': '',
+            'member_base_dn': '',
+        }
+        return data
