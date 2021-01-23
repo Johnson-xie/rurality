@@ -66,6 +66,7 @@ def create_user(username, password, name=None, phone=None, email=None, operator=
     data = {
         'username': username,
         'name': name,
+        'typ': UserModel.TYP_NORMAL,
         'phone': phone,
         'email': email,
     }
