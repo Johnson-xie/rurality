@@ -7,23 +7,21 @@ from base import errors
 
 class LdapCli:
 
-    def __init__(self, host, root_dn, username, password):
+    def __init__(self, host, member_base_dn, admin_dn, admin_password):
         self.host = host
-        self.username = username
-        self.password = password
-        self.root_dn = root_dn
-        self.group_dn = f'cn=group,{self.root_dn}'
-        self.member_dn = f'cn=member,{self.root_dn}'
+        self.admin_dn = admin_dn
+        self.admin_password = admin_password
+        self.member_base_dn = member_base_dn
         self.server = Server(self.host)
 
     def _create_connection(self):
-        return Connection(self.server, f'cn={self.username},{self.root_dn}', self.password, auto_bind=True)
+        return Connection(self.server, self.admin_dn, self.admin_password, auto_bind=True)
 
     def get_users(self):
         '''
         获取用户列表
         '''
-        dn = self.member_dn
+        dn = self.member_base_dn
         conn = self._create_connection()
         attributes = ['cn', 'sn']
         conn.search(dn, '(objectclass=person)', attributes=attributes)
@@ -41,12 +39,9 @@ class LdapCli:
         '''
         校验密码
         '''
-        dn = f'cn={username},{self.member_dn}'
+        dn = f'cn={username},{self.member_base_dn}'
         try:
             Connection(self.server, dn, password, auto_bind=True)
         except exceptions.LDAPBindError as e:
             return False
         return True
-
-
-ldap_cli = LdapCli('ldap://ldap.oldb.top:389', 'dc=oldb,dc=top', 'admin', 'ldap123')
