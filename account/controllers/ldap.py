@@ -24,6 +24,7 @@ def update_ldap_config(host, admin_dn, admin_password, member_base_dn, operator=
     '''
     编辑服务配置
     '''
+    # TODO: 这里应该增加校验ldap参数对不对的逻辑，但是我有点不会
     obj = LdapConfigModel.objects.first()
     data = {
         'host': host,
