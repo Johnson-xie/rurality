@@ -8,7 +8,7 @@ from base import errors
 from utils.ldap_cli import LdapCli
 
 
-def sync_ldap_users():
+def sync_ldap_user():
     '''
     同步LDAP用户
     '''

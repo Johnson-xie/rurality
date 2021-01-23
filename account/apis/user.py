@@ -119,3 +119,12 @@ class ListUserDepartmentApi(BaseApi):
     def post(self, request, params):
         data = user_ctl.get_departments_by_user_id(**params)
         return data
+
+
+class SyncLdapUserApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = user_ctl.sync_ldap_user(**params)
+        return data
