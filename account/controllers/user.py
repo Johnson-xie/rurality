@@ -220,19 +220,3 @@ def get_departments_by_user_id(obj_id, operator=None):
         'data_list': data_list,
     }
     return data
-
-
-def sync_ldap_user(operator=None):
-    '''
-    同步用户
-    '''
-    config_obj = LdapConfigModel.objects.first()
-    if not config_obj:
-        raise errors.CommonError('请先配置LDAP参数')
-    params = {}
-    data = {
-        'name': '同步LDAP用户',
-        'typ': 'sync_ldap_user',
-        'params': params,
-    }
-    berry_ctl.create_berry(**data)

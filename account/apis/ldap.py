@@ -24,3 +24,12 @@ class UpdateLdapConfigApi(BaseApi):
     def post(self, request, params):
         data = ldap_ctl.update_ldap_config(**params)
         return data
+
+
+class SyncLdapUserApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = ldap_ctl.sync_ldap_user(**params)
+        return data

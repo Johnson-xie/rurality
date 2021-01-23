@@ -14,5 +14,4 @@ urlpatterns = [
     path('user/delete/', user_api.DeleteUserApi.as_view()),
     path('user/role/list/', user_api.ListUserRoleApi.as_view()),
     path('user/department/list/', user_api.ListUserDepartmentApi.as_view()),
-    path('user/ldap/sync/', user_api.SyncLdapUserApi.as_view()),
 ]
