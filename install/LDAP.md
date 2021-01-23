@@ -37,7 +37,7 @@ docker run --restart=always --name phpldapadmin -p 9999:80 \
 访问地址：http://192.168.50.101:9999
 账号：cn=admin,dc=oldb,dc=top
 密码：ldap123
-``
+```
 
 ##### 使用策略
 > 在根节点下创建两个组，一个组名叫group，一个组名叫member  
@@ -52,6 +52,7 @@ docker run --restart=always --name phpldapadmin -p 9999:80 \
 > 在cn=member,dc=oldb,dc=top下创建用户buxingxing  
 > Create a child entry -> Generic: User Account  
 > 填写如下信息：
+
 ```
 Last name: 卜星星
 Common Name: buxingxing
@@ -59,6 +60,7 @@ User ID: buxingxing
 Password: 123456
 GID Number: member
 ```
+
 > Last name: 用来存储用户中文名  
 > Common Name: 存储username  
 > 其实Common Name和User ID我都存储了username，但是具体可以根据实际情况来设置  
